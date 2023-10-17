@@ -1,5 +1,6 @@
 
 
+
 namespace Week10Checkpoint.Repositories;
 public class IngredientsRepository
 {
@@ -13,9 +14,9 @@ public class IngredientsRepository
   {
     string sql = @"
         INSERT INTO ingredients
-        (name, quantity, recipeId, img)
+        (name, quantity, recipeId)
         VALUES
-        (@name, @quantity, @recipeId, @img);
+        (@name, @quantity, @recipeId);
         SELECT
         ing.*
         FROM ingredients ing
@@ -25,21 +26,25 @@ public class IngredientsRepository
     return newIngredient;
   }
 
+  internal void DeleteIngredient(int ingredientId)
+  {
+    string sql = @"
+        DELETE FROM ingredients
+        WHERE id = @ingredientId
+        ;";
+    _db.Execute(sql, new { ingredientId });
+  }
+
   internal List<Ingredient> GetIngredientsByRecipeId(int recipeId)
   {
     string sql = @"
-        SELECT
-        ing.*,
-        rec.*
-        FROM ingredients ing
-        JOIN recipes rec ON rec.id = ing.recipeId
-        WHERE recipeId = @recipeId
-        ;";
-    List<Ingredient> ingredients = _db.Query<Ingredient, Recipe, Ingredient>(sql, (ingredient, recipeId) =>
-    {
-      ingredient.RecipeId = recipeId;
-      return ingredient;
-    }, new { recipeId }).ToList();
+  SELECT
+  *
+  FROM ingredients
+  WHERE recipeId = @recipeId
+  ;";
+    List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
     return ingredients;
   }
+
 }

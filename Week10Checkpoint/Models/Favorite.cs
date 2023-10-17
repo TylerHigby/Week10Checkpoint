@@ -1,5 +1,5 @@
 namespace Week10Checkpoint.Models;
-public class FavoriteId
+public class Favorite
 {
   public int Id { get; set; }
   public int RecipeId { get; set; }

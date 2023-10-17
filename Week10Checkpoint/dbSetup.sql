@@ -26,15 +26,16 @@ CREATE TABLE
         id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
         quantity VARCHAR(255) NOT NULL,
-        recipeId INT NOT NULL,
-        img VARCHAR(1000) NOT NULL
+        recipeId INT NOT NULL
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
     IF NOT EXISTS favorites(
-        id VARCHAR(255) NOT NULL PRIMARY KEY,
+        id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         accountId VARCHAR(255) NOT NULL,
-        recipeId INT NOT NULL
+        Foreign Key (accountId) REFERENCES accounts(id),
+        recipeId INT NOT NULL,
+        Foreign Key (recipeId) REFERENCES recipes(id)
     ) default charset utf8 COMMENT '';
 
 INSERT INTO
@@ -56,6 +57,8 @@ VALUES (
 DROP TABLE recipes;
 
 DROP TABLE ingredients;
+
+DROP TABLE favorites;
 
 DELETE FROM recipes WHERE id=1;
 

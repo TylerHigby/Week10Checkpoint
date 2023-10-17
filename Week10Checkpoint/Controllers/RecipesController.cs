@@ -6,9 +6,10 @@ public class RecipesController : ControllerBase
   private readonly RecipesService _recipesService;
   private readonly IngredientsService _ingredientsService;
   private readonly Auth0Provider _auth0;
-  public RecipesController(RecipesService recipesService, Auth0Provider auth0)
+  public RecipesController(RecipesService recipesService, IngredientsService ingredientsService, Auth0Provider auth0)
   {
     _recipesService = recipesService;
+    _ingredientsService = ingredientsService;
     _auth0 = auth0;
   }
 

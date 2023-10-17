@@ -18,7 +18,7 @@ logger.log('got recipe by Id', res.data)
 AppState.activeRecipe = new Recipe(res.data)
   }
   async createRecipe(recipeData){
-    const res = await api.get('api/recipes',recipeData)
+    const res = await api.post('api/recipes',recipeData)
     logger.log('Created Recipe', res.data)
     AppState.recipes.push(new Recipe(res.data))
   }
